@@ -22,3 +22,6 @@ Style/Documentation:
 
 Layout/LineLength:
   Max: 120
+
+RSpec/NestedGroups:
+  Max: 4

@@ -8,5 +8,4 @@ require_relative "card_dealer/deck"
 
 module CardDealer
   class Error < StandardError; end
-  # Your code goes here...
 end

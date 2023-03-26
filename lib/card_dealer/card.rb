@@ -2,10 +2,10 @@
 
 module CardDealer
   class Card
-    CLUBS = "c"
+    CLUBS    = "c"
     DIAMONDS = "d"
-    HEARTS = "h"
-    SPADES = "s"
+    HEARTS   = "h"
+    SPADES   = "s"
 
     # T = 10, J = Jack, Q = Queen, K = King, A = Ace
     RANKS = %w[2 3 4 5 6 7 8 9 T J Q K A].freeze
@@ -17,6 +17,8 @@ module CardDealer
 
     attr_reader :rank, :suit
 
+    # Initializes a new card.
+    #
     # @param rank [String] the card's rank (2-9, T, J, Q, K, A)
     # @param suit [String] the card's suit (c, d, h, s)
     def initialize(rank, suit)

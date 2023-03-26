@@ -16,7 +16,7 @@ module CardDealer
 
     def initialize: (rank: String, suit: String) -> void
 
-    def to_s: () -> String
+    def to_s: -> String
 
     private
 
