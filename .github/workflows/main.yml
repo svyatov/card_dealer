@@ -23,9 +23,11 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
-    - name: Publish code coverage
+    - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v3.2.0
       env:
-        CC_TEST_REPORTER_ID: 486a13b81812df71ff55eaa816d491c55f5ea445c400c35b8e3edf46f3000217
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: bundle exec rake
+        coverageLocations: ${{ github.workspace }}/coverage/coverage.json:simplecov
+        debug: true
