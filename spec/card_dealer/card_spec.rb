@@ -25,4 +25,20 @@ RSpec.describe CardDealer::Card do
   it "has a string representation" do
     expect(card.to_s).to eq("#{rank}#{suit}")
   end
+
+  it "has an inspect representation" do
+    expect(card.inspect).to eq(%(#<CardDealer::Card "#{card}">))
+  end
+
+  it "raises an error when rank is invalid" do
+    expect do
+      described_class.new("invalid", suit)
+    end.to raise_error(CardDealer::Error).with_message("Invalid rank: invalid")
+  end
+
+  it "raises an error when suit is invalid" do
+    expect do
+      described_class.new(rank, "invalid")
+    end.to raise_error(CardDealer::Error).with_message("Invalid suit: invalid")
+  end
 end

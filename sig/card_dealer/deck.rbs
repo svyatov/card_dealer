@@ -1,0 +1,22 @@
+module CardDealer
+  class Deck
+    attr_reader cards: Array[Card]
+
+    def initialize: (
+        ?decks: Integer,
+        ?cards_per_suit: Integer,
+        ?ranks: :highest | :lowest | Array[String],
+        ?suits: :all | Array[String]) -> void
+
+    private
+
+    def build_suits: (suits: :all | Array[String]) -> Array[String]
+    def build_ranks: (ranks: :highest | :lowest | Array[String]) -> Array[String]
+
+    def validate_params: (
+        decks: Integer,
+        cards_per_suit: Integer,
+        ranks: :highest | :lowest | Array[String],
+        suits: :all | Array[String]) -> void
+  end
+end

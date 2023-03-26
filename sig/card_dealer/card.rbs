@@ -8,11 +8,18 @@ module CardDealer
     RANKS: Array[String]
     SUITS: Array[String]
 
+    RANKS_SET: Set[String]
+    SUITS_SET: Set[String]
+
     attr_reader rank: String
     attr_reader suit: String
 
-    def initialize: (rank: String, suit: String | nil) -> void
+    def initialize: (rank: String, suit: String) -> void
 
     def to_s: () -> String
+
+    private
+
+    def validate_arguments: (rank: String, suit: String) -> void
   end
 end
