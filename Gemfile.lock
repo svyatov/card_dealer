@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    card_dealer (1.0.0)
+    card_dealer (0.1.0)
 
 GEM
   remote: https://rubygems.org/
