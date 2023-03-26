@@ -7,14 +7,18 @@ module CardDealer
     HEARTS = "h"
     SPADES = "s"
 
+    # T = 10, J = Jack, Q = Queen, K = King, A = Ace
     RANKS = %w[2 3 4 5 6 7 8 9 T J Q K A].freeze
     SUITS = [CLUBS, DIAMONDS, HEARTS, SPADES].freeze
 
+    # For faster lookup
     RANKS_SET = RANKS.to_set.freeze
     SUITS_SET = SUITS.to_set.freeze
 
     attr_reader :rank, :suit
 
+    # @param rank [String] the card's rank (2-9, T, J, Q, K, A)
+    # @param suit [String] the card's suit (c, d, h, s)
     def initialize(rank, suit)
       validate_arguments rank, suit
 
@@ -27,6 +31,7 @@ module CardDealer
       "#{rank}#{suit}"
     end
 
+    # @return [String] the card's object string representation
     def inspect
       %(#<CardDealer::Card "#{self}">)
     end
