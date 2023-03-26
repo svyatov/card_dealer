@@ -2,6 +2,7 @@
 [![Gem Version](https://badge.fury.io/rb/card_dealer.svg)](https://badge.fury.io/rb/card_dealer)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a5266ef126fbbe754ff8/maintainability)](https://codeclimate.com/github/svyatov/card_dealer/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a5266ef126fbbe754ff8/test_coverage)](https://codeclimate.com/github/svyatov/card_dealer/test_coverage)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
 This gem allows you to generate a deck of cards, shuffle them, and deal them to players.
 
