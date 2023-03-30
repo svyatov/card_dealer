@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require "simplecov"
-require "simplecov_json_formatter" if ENV["CI"]
 
-SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter if ENV["CI"]
 SimpleCov.start do
   enable_coverage :branch
+
+  if ENV["CI"]
+    require "simplecov_json_formatter"
+    formatter SimpleCov::Formatter::JSONFormatter
+  end
 end
 
 require "card_dealer"

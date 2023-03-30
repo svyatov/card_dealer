@@ -11,12 +11,16 @@ module CardDealer
     RANKS_SET: Set[String]
     SUITS_SET: Set[String]
 
+    @to_s: String
+
     attr_reader rank: String
     attr_reader suit: String
 
-    def initialize: (rank: String, suit: String) -> void
+    def initialize: (rank: String, suit: String | nil) -> void
 
     def to_s: -> String
+
+    def eql?: (other: Card) -> bool
 
     private
 

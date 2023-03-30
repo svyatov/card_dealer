@@ -3,28 +3,14 @@ module CardDealer
     attr_reader cards: Array[Card]
     attr_reader seed: Integer
 
-    @decks: Integer
-    @ranks: :highest | :lowest | Array[String]
-    @suits: :all | Array[String]
-
-    def initialize: (
-        ?decks: Integer,
-        ?cards_per_suit: Integer,
-        ?ranks: :highest | :lowest | Array[String],
-        ?suits: :all | Array[String]) -> void
-
-    def reset: -> self
+    def initialize: (cards: Array[Card]) -> void
 
     def shuffle: (?seed: Integer) -> self
+
+    def size: -> Integer
 
     def to_a: -> Array[String]
 
     def to_s: -> String
-
-    private
-
-    def build_suits: (suits: :all | Array[String]) -> Array[String]
-
-    def build_ranks: (ranks: :highest | :lowest | Array[String]) -> Array[String]
   end
 end

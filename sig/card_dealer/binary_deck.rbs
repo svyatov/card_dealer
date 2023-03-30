@@ -1,0 +1,21 @@
+module CardDealer
+  class BinaryDeck
+    SUIT_MAP: Hash[String, Integer]
+    RANK_MAP: Hash[String, Integer]
+    CARD_NUMBER_MAP: Hash[Card, Integer]
+    CARD_BINARY_NUMBER_MAP: Hash[Card, String]
+    REVERSE_CARD_BINARY_NUMBER_MAP: Hash[String, Card]
+
+    BIN_SCHEMA: String
+    BIN_SCHEMA_XL: String
+
+    BIN_SCHEMA_ENCODE_LIMIT: Integer
+    BIN_SCHEMA_DECODE_LIMIT: Integer
+    BIN_SCHEMA_XL_ENCODE_LIMIT: Integer
+    BIN_SCHEMA_XL_DECODE_LIMIT: Integer
+
+    def self.encode: (Deck) -> String
+
+    def self.decode: (String) -> Deck
+  end
+end

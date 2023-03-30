@@ -1,0 +1,21 @@
+module CardDealer
+  class DeckBuilder
+    def self.call: (
+        ?decks: Integer,
+        ?cards_per_suit: Integer,
+        ?ranks: :highest | :lowest | Array[String],
+        ?suits: :all | Array[String]) -> void
+
+    def self.standard52: (?decks: Integer) -> Deck
+
+    def self.standard36: (?decks: Integer) -> Deck
+
+    private
+
+    def self.build_ranks: (ranks: :highest | :lowest | Array[String]) -> Array[String]
+
+    def self.build_suits: (suits: :all | Array[String]) -> Array[String]
+
+    def self.build_deck: (decks: Integer, cards_per_suit: Integer, ranks: Array[String], suits: Array[String]) -> Deck
+  end
+end

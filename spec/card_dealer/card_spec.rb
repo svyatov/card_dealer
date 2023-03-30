@@ -5,6 +5,7 @@ RSpec.describe CardDealer::Card do
 
   let(:rank) { described_class::RANKS.sample }
   let(:suit) { described_class::SUITS.sample }
+  let(:card_string) { "#{rank}#{suit}" }
 
   it "defines 13 ranks" do
     expect(described_class::RANKS.size).to eq(13)
@@ -23,7 +24,7 @@ RSpec.describe CardDealer::Card do
   end
 
   it "has a string representation" do
-    expect(card.to_s).to eq("#{rank}#{suit}")
+    expect(card.to_s).to eq(card_string)
   end
 
   it "has an inspect representation" do
@@ -40,5 +41,11 @@ RSpec.describe CardDealer::Card do
     expect do
       described_class.new(rank, "invalid")
     end.to raise_error(CardDealer::Error).with_message("Invalid suit: invalid")
+  end
+
+  it "can be initialized with a string representing a card", aggregate_failures: true do
+    card = described_class.new(card_string)
+    expect(card.rank).to eq(rank)
+    expect(card.suit).to eq(suit)
   end
 end
