@@ -34,18 +34,36 @@ RSpec.describe CardDealer::Card do
   it "raises an error when rank is invalid" do
     expect do
       described_class.new("invalid", suit)
-    end.to raise_error(CardDealer::Error).with_message("Invalid rank: invalid")
+    end.to raise_error(described_class::InvalidRankError).with_message("Invalid rank: invalid")
   end
 
   it "raises an error when suit is invalid" do
     expect do
       described_class.new(rank, "invalid")
-    end.to raise_error(CardDealer::Error).with_message("Invalid suit: invalid")
+    end.to raise_error(described_class::InvalidSuitError).with_message("Invalid suit: invalid")
   end
 
   it "can be initialized with a string representing a card", aggregate_failures: true do
     card = described_class.new(card_string)
     expect(card.rank).to eq(rank)
     expect(card.suit).to eq(suit)
+  end
+
+  it "can be compared to another card" do
+    expect(card).to eq(described_class.new(rank, suit))
+  end
+
+  it "does not equal a card with a different rank" do
+    new_rank = described_class::RANKS.reject { |r| r == rank }.sample
+    expect(card).not_to eq(described_class.new(new_rank, suit))
+  end
+
+  it "does not equal a card with a different suit" do
+    new_suit = described_class::SUITS.reject { |s| s == suit }.sample
+    expect(card).not_to eq(described_class.new(rank, new_suit))
+  end
+
+  it "does not equal to any random object" do
+    expect(card).not_to eq(Object.new)
   end
 end

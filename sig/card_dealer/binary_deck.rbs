@@ -6,16 +6,25 @@ module CardDealer
     CARD_BINARY_NUMBER_MAP: Hash[Card, String]
     REVERSE_CARD_BINARY_NUMBER_MAP: Hash[String, Card]
 
-    BIN_SCHEMA: String
-    BIN_SCHEMA_XL: String
+    BIN_TEMPLATE_8: String
+    BIN_TEMPLATE_16: String
+    BIN_TEMPLATE_32: String
 
-    BIN_SCHEMA_ENCODE_LIMIT: Integer
-    BIN_SCHEMA_DECODE_LIMIT: Integer
-    BIN_SCHEMA_XL_ENCODE_LIMIT: Integer
-    BIN_SCHEMA_XL_DECODE_LIMIT: Integer
+    BIN_8_ENCODE_LIMIT: Integer
+    BIN_8_DECODE_LIMIT: Integer
+    BIN_16_ENCODE_LIMIT: Integer
+    BIN_16_DECODE_LIMIT: Integer
+    BIN_32_ENCODE_LIMIT: Integer
+    BIN_32_DECODE_LIMIT: Integer
 
     def self.encode: (Deck) -> String
 
     def self.decode: (String) -> Deck
+
+    private
+
+    def self.encoding_template_for: (Integer) -> String
+
+    def self.decoding_template_for: (Integer) -> String
   end
 end

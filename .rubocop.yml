@@ -23,5 +23,9 @@ Style/Documentation:
 Layout/LineLength:
   Max: 120
 
+Metrics/BlockLength:
+  AllowedMethods:
+    - 'namespace'
+
 RSpec/NestedGroups:
   Max: 4

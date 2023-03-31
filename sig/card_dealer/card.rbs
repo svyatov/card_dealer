@@ -8,8 +8,8 @@ module CardDealer
     RANKS: Array[String]
     SUITS: Array[String]
 
-    RANKS_SET: Set[String]
-    SUITS_SET: Set[String]
+    RANK_MAP: Hash[String, Integer]
+    SUIT_MAP: Hash[String, Integer]
 
     @to_s: String
 
@@ -19,8 +19,6 @@ module CardDealer
     def initialize: (rank: String, suit: String | nil) -> void
 
     def to_s: -> String
-
-    def eql?: (other: Card) -> bool
 
     private
 
