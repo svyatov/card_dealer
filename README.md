@@ -4,7 +4,11 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a5266ef126fbbe754ff8/test_coverage)](https://codeclimate.com/github/svyatov/card_dealer/test_coverage)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
-This gem allows you to generate a deck of cards, shuffle them, and deal them to players.
+CardDealer is your go-to gem for creating, shuffling, and dealing decks of cards
+with ease. Whether you're building a poker night app or a virtual bridge club,
+CardDealer has got you covered. Enjoy customizable deck options, smooth
+shuffling algorithms, and simple yet powerful deck manipulation tools that bring
+the classic card game experience to life.
 
 ## Installation
 
@@ -22,9 +26,14 @@ TBD
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake spec` to run the tests. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push
+git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
