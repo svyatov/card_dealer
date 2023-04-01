@@ -4,7 +4,7 @@
 
 ### BREAKING CHANGES
 
-- Deck building in extracted from the `Deck` class to the `BuildDeck` class:
+- Deck building is extracted from the `Deck` class to the `BuildDeck` class:
   - `Deck#new` now takes an array of cards instead of a hash of options
   - `Deck#reset` removed
 
@@ -22,11 +22,11 @@
 - `Deck#from_binary` helper method to convert the binary string to a deck
 - `Deck#==` method to compare decks for equality
 - Lots of documentation
-- [Steep](https://github.com/soutaro/steep) gem to check types correctness
+- [Steep](https://github.com/soutaro/steep) gem to check type correctness
 
 ### Changed
 
-- It's possible to initialize a card with a string now, e.g. `Card.new('9c')`
+- It's now possible to initialize a card with a string, e.g. `Card.new('9c')`
 
 ### Fixed
 
@@ -40,6 +40,6 @@ Initial release!
 
 - `Card` class
 - `Deck` class
-- Ability to create a decks of various size, ranks and suits
+- Ability to create a decks of various sizes, ranks, and suits
 - Ability to shuffle a deck
 - Ability to reset a deck
