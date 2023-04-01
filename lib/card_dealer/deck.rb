@@ -66,6 +66,25 @@ module CardDealer
       cards.size
     end
 
+    # Compares two deck instances for equality based on their cards.
+    #
+    # Two decks are considered equal if they have the same cards in the same order.
+    #
+    # @param other [Deck] The other deck instance to compare with.
+    #
+    # @return [Boolean] True if the decks are equal, false otherwise.
+    #
+    # @example
+    #   deck1 = CardDealer::BuildDeck.standard52
+    #   deck2 = CardDealer::BuildDeck.standard52
+    #   deck1 == deck2 #=> true
+    #
+    def ==(other)
+      return false unless other.is_a?(Deck)
+
+      cards == other.cards
+    end
+
     # Returns an array of cards as strings in the deck.
     #
     # @return [Array<String>] The array of cards in the deck as strings (see {Card#to_s})

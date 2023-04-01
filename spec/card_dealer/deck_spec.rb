@@ -10,14 +10,14 @@ RSpec.describe CardDealer::Deck do
       cards_before_shuffle = deck.cards.dup
       expect(deck.shuffle).to be_a(described_class)
       expect(deck.cards).not_to eq(cards_before_shuffle)
-      expect(deck.cards.size).to eq(cards_before_shuffle.size)
+      expect(deck.size).to eq(cards_before_shuffle.size)
     end
 
     it "can reproduce the same shuffle with a seed", aggregate_failures: true do
       expect { deck.shuffle }.to change(deck, :seed).from(nil).to(be_a(Integer))
-      expect(deck.cards).not_to eq(another_deck.cards)
+      expect(deck).not_to eq(another_deck)
       another_deck.shuffle(deck.seed)
-      expect(another_deck.cards).to eq(deck.cards)
+      expect(another_deck).to eq(deck)
     end
 
     it "does not change the seed if the deck is shuffled again", aggregate_failures: true do
@@ -125,7 +125,22 @@ RSpec.describe CardDealer::Deck do
   describe "#from_binary" do
     it "decodes and returns the deck from a binary string" do
       encoded_deck = CardDealer::BinaryDeck.encode(deck)
-      expect(described_class.from_binary(encoded_deck).cards).to eq(deck.cards)
+      expect(described_class.from_binary(encoded_deck)).to eq(deck)
+    end
+  end
+
+  describe "#==" do
+    it "returns false if the other object is not a deck" do
+      expect(deck).not_to eq("not a deck")
+    end
+
+    it "returns true if the decks have the same cards in the same order" do
+      expect(deck).to eq(CardDealer::BuildDeck.standard52)
+    end
+
+    it "returns false if the decks have different cards or cards are in different orders", aggregate_failures: true do
+      expect(deck.shuffle).not_to eq(CardDealer::BuildDeck.standard52)
+      expect(CardDealer::BuildDeck.standard52).not_to eq(CardDealer::BuildDeck.standard36)
     end
   end
 end

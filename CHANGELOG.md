@@ -18,6 +18,7 @@
 - `Deck#deal` method to deal cards from the deck
 - `Deck#to_binary_s` helper method to convert the deck to a binary string
 - `Deck#from_binary` helper method to convert the binary string to a deck
+- `Deck#==` method to compare decks for equality
 - Lots of documentation
 - [Steep](https://github.com/soutaro/steep) gem to check types correctness
 
