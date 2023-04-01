@@ -22,7 +22,101 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TBD
+### Creating a standard 52-card deck
+
+To create a standard 52-card deck, use the `CardDealer::BuildDeck.standard52` method:
+
+```ruby
+deck = CardDealer::BuildDeck.standard52
+puts deck.cards
+```
+
+### Creating a standard 36-card deck
+
+To create a standard 36-card deck, use the `CardDealer::BuildDeck.standard36` method:
+
+```ruby
+deck = CardDealer::BuildDeck.standard36
+puts deck.cards
+```
+
+### Creating a custom deck of cards
+
+To create a custom deck of cards, use the `CardDealer::BuildDeck.custom` method.
+You can specify the number of decks, cards per suit, ranks, and suits:
+
+```ruby
+deck = CardDealer::BuildDeck.custom(
+  decks: 2,
+  cards_per_suit: 5,
+  ranks: :highest,
+  suits: %w[c d]
+)
+puts deck.cards
+```
+
+### Shuffling and dealing cards
+
+The `CardDealer::Deck` class provides methods for shuffling and dealing cards:
+
+```ruby
+deck = CardDealer::BuildDeck.standard52
+deck.shuffle
+hand = deck.deal(5)
+puts hand
+```
+
+You can also burn cards before dealing:
+
+```ruby
+deck = CardDealer::BuildDeck.standard52
+deck.shuffle
+hand = deck.deal(3, burn: 1)
+puts hand
+```
+
+To burn cards without dealing, just pass `0` as the number of cards to deal:
+
+```ruby
+deck = CardDealer::BuildDeck.standard52
+deck.shuffle
+hand = deck.deal(0, burn: 1)
+puts hand
+```
+
+Burned cards are stored within the deck and can be accessed via `burned_cards` method:
+
+```ruby
+deck = CardDealer::BuildDeck.standard52
+deck.shuffle
+deck.deal(0, burn: 10)
+puts deck.burned_cards
+```
+
+### Encoding a deck of cards as a binary string
+
+To encode a deck of cards as a binary string, use the `CardDealer::BinaryDeck.encode` method.
+This is useful if you'd like to store a deck of cards in a database, cache, or a file:
+
+```ruby
+deck = CardDealer::BuildDeck.standard52
+encoded_deck = CardDealer::BinaryDeck.encode(deck)
+# - or -
+encoded_deck = deck.to_binary_s
+puts encoded_deck
+```
+
+### Decoding a binary string into a deck of cards
+
+To decode a binary string into a deck of cards, use the `CardDealer::BinaryDeck.decode` method:
+
+```ruby
+encoded_deck = "\x02\xCDP" # binary string
+decoded_deck = CardDealer::BinaryDeck.decode(encoded_deck)
+# - or -
+decoded_deck = CardDealer::Deck.from_binary(encoded_deck)
+puts decoded_deck.cards
+```
 
 ## Development
 
