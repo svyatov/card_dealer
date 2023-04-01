@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.2.0] - 2023-04-01
+
 ### BREAKING CHANGES
 
 - Deck building in extracted from the `Deck` class to the `BuildDeck` class:
