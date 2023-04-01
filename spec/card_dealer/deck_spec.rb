@@ -115,4 +115,17 @@ RSpec.describe CardDealer::Deck do
       end.to change { deck.burned_cards.size }.by(5).and(change { deck.cards.size }.by(-5)) # 5 burned, 0 dealt
     end
   end
+
+  describe "#to_binary_s" do
+    it "encodes and returns the deck as a binary string" do
+      expect(deck.to_binary_s).to eq(CardDealer::BinaryDeck.encode(deck))
+    end
+  end
+
+  describe "#from_binary" do
+    it "decodes and returns the deck from a binary string" do
+      encoded_deck = CardDealer::BinaryDeck.encode(deck)
+      expect(described_class.from_binary(encoded_deck).cards).to eq(deck.cards)
+    end
+  end
 end

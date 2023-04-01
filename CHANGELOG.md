@@ -16,6 +16,8 @@
 - `Card#<=>` method to make cards sortable
 - `Deck#size` method to get the number of cards in the deck
 - `Deck#deal` method to deal cards from the deck
+- `Deck#to_binary_s` helper method to convert the deck to a binary string
+- `Deck#from_binary` helper method to convert the binary string to a deck
 - Lots of documentation
 - [Steep](https://github.com/soutaro/steep) gem to check types correctness
 

@@ -4,6 +4,8 @@ module CardDealer
     attr_reader seed: Integer?
     attr_reader burned_cards: Array[Card]?
 
+    def self.from_binary: (String) -> Deck
+
     def initialize: (Array[Card] cards) -> void
 
     def shuffle: (?Integer seed) -> self
@@ -15,5 +17,7 @@ module CardDealer
     def to_a: -> Array[String]
 
     def to_s: -> String
+
+    def to_binary_s: -> String
   end
 end

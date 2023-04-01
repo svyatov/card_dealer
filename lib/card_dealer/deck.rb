@@ -81,5 +81,23 @@ module CardDealer
     def to_s
       to_a.to_s
     end
+
+    # Encodes the deck as a binary string using the {BinaryDeck} class.
+    #
+    # @return [String] The binary representation of the deck.
+    #
+    def to_binary_s
+      BinaryDeck.encode(self)
+    end
+
+    # Decodes a binary string into a Deck instance using the {BinaryDeck} class.
+    #
+    # @param encoded_deck [String] The binary string representation of a deck.
+    #
+    # @return [Deck] The decoded Deck object.
+    #
+    def self.from_binary(encoded_deck)
+      BinaryDeck.decode(encoded_deck)
+    end
   end
 end
