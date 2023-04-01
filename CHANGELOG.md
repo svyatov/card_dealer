@@ -13,6 +13,7 @@
 - `DeckBuilder` class to build decks
 - `Card` instances are now safe to use as hash keys
 - `Card#eql?`, `Card#hash` and `Card#==` methods to compare cards and safely use them as hash keys
+- `Card#<=>` method to make cards sortable
 - `Deck#size` method to get the number of cards in the deck
 - `Deck#deal` method to deal cards from the deck
 - Lots of documentation

@@ -126,6 +126,25 @@ module CardDealer
       eql?(other)
     end
 
+    # Compares two card instances based on their rank and suit.
+    #
+    # @param other [Card] The card instance to compare with.
+    #
+    # @return [Integer, nil] Returns -1 if the current card is less than the
+    #  other card, 0 if both cards are equal, and 1 if the current card is
+    #  greater than the other card. Returns nil if the comparison is not possible
+    #  (e.g., other is not a Card object).
+    #
+    def <=>(other)
+      return unless other.is_a?(Card)
+      return 0 if self == other
+
+      rank_comparison = RANK_MAP[rank] <=> RANK_MAP[other.rank]
+      return rank_comparison unless rank_comparison.zero?
+
+      SUIT_MAP[suit] <=> SUIT_MAP[other.suit]
+    end
+
     # Returns a string representation of the card instance's object state for debugging purposes.
     #
     # This method generates a human-readable string that includes the card's class and string representation.
