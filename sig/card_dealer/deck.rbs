@@ -2,10 +2,13 @@ module CardDealer
   class Deck
     attr_reader cards: Array[Card]
     attr_reader seed: Integer?
+    attr_reader burned_cards: Array[Card]?
 
     def initialize: (Array[Card] cards) -> void
 
     def shuffle: (?Integer seed) -> self
+
+    def deal: (?Integer num, ?burn: Integer) -> Array[Card]
 
     def size: -> Integer
 

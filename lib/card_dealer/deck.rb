@@ -12,6 +12,8 @@ module CardDealer
     attr_reader :cards
     # @return [Integer, nil] The seed used for shuffling the deck.
     attr_reader :seed
+    # @return [Array<Card>] The array of cards that have been burned.
+    attr_reader :burned_cards
 
     # Initializes a new deck with the specified cards.
     #
@@ -19,6 +21,7 @@ module CardDealer
     #
     def initialize(cards)
       @cards = cards
+      @burned_cards = []
     end
 
     # Shuffles the deck using the Fisher-Yates algorithm.
@@ -28,9 +31,31 @@ module CardDealer
     # @return [Deck] The shuffled deck.
     #
     def shuffle(seed = Random.new_seed)
-      @seed = seed
-      @cards.shuffle! random: Random.new(seed)
+      @seed ||= seed
+      @cards.shuffle! random: Random.new(@seed.to_i)
       self
+    end
+
+    # Deals a specified number of cards from the top of the deck, optionally burning cards before the deal.
+    #
+    # The method removes the specified number of cards from the top of the deck and returns them.
+    # If the burn parameter is specified, it will remove (burn) the indicated number of cards
+    # from the top of the deck before dealing.
+    #
+    # @param num [Integer] The number of cards to deal (default: 1).
+    # @param burn [Integer] The number of cards to burn before dealing (default: 0).
+    #
+    # @return [Array<Card>] The dealt cards.
+    #
+    # @example
+    #   deck = CardDealer::Deck.new([CardDealer::Card.new("As"), CardDealer::Card.new("Td")])
+    #   dealt_cards = deck.deal(burn: 1)
+    #   dealt_cards #=> [#<CardDealer::Card "Td">]
+    #   deck.burned_cards #=> [CardDealer::Card.new("As")]
+    #
+    def deal(num = 1, burn: 0)
+      @burned_cards += cards.shift(burn) if burn.positive?
+      cards.shift(num)
     end
 
     # Returns the number of cards in the deck.

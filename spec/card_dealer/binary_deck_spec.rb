@@ -55,7 +55,7 @@ RSpec.describe CardDealer::BinaryDeck do
     end
     let(:deck_out_of_range) { instance_double(String, bytesize: described_class::BIN_32_DECODE_LIMIT + 1) }
 
-    it "decodes a binary string back into a deck", aggregate_failures: true do # rubocop:disable RSpec/ExampleLength
+    it "decodes a binary string back into a deck", aggregate_failures: true do
       stored_decks.each do |stored_deck|
         encoded_deck = File.read("spec/fixtures/#{stored_deck}.bin")
         original_cards = JSON.parse(File.read("spec/fixtures/#{stored_deck}.json"))["cards"]

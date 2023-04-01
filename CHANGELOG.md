@@ -14,6 +14,7 @@
 - `Card` instances are now safe to use as hash keys
 - `Card#eql?`, `Card#hash` and `Card#==` methods to compare cards and safely use them as hash keys
 - `Deck#size` method to get the number of cards in the deck
+- `Deck#deal` method to deal cards from the deck
 - Lots of documentation
 - [Steep](https://github.com/soutaro/steep) gem to check types correctness
 

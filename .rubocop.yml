@@ -29,3 +29,6 @@ Metrics/BlockLength:
 
 RSpec/NestedGroups:
   Max: 4
+
+RSpec/ExampleLength:
+  Max: 10
