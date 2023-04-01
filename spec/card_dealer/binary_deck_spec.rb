@@ -4,12 +4,12 @@ require "card_dealer"
 require "card_dealer/binary_deck"
 
 RSpec.describe CardDealer::BinaryDeck do
-  let(:deck) { CardDealer::DeckBuilder.standard52.shuffle }
+  let(:deck) { CardDealer::BuildDeck.standard52.shuffle }
 
   describe ".encode" do
     let(:deck_partial) { CardDealer::Deck.new(deck.cards.take(11)).shuffle }
-    let(:deck_large) { CardDealer::DeckBuilder.standard52(decks: 1000).shuffle }
-    let(:deck_huge) { CardDealer::DeckBuilder.standard52(decks: 10_000).shuffle }
+    let(:deck_large) { CardDealer::BuildDeck.standard52(decks: 1000).shuffle }
+    let(:deck_huge) { CardDealer::BuildDeck.standard52(decks: 10_000).shuffle }
     let(:deck_out_of_range) { instance_double(CardDealer::Deck, size: 2**32) }
 
     it "encodes a partial deck into a binary string", aggregate_failures: true do

@@ -5,7 +5,7 @@ module CardDealer
   #
   # It supports operations like shuffling, getting the size of the deck, and converting
   # the deck to an array or string. The deck can be initialized with an array of {Card}
-  # objects, which can be created using the {DeckBuilder} class.
+  # objects, which can be created using the {BuildDeck} class.
   #
   class Deck
     # @return [Array<Card>] The array of cards in the deck.
@@ -17,7 +17,7 @@ module CardDealer
 
     # Initializes a new deck with the specified cards.
     #
-    # @param cards [Array<Card>] The array of cards to use in the deck (see {DeckBuilder}).
+    # @param cards [Array<Card>] The array of cards to use in the deck (see {BuildDeck}).
     #
     def initialize(cards)
       @cards = cards

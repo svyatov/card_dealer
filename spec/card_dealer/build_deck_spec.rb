@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe CardDealer::DeckBuilder do
-  subject(:builder) { described_class }
+RSpec.describe CardDealer::BuildDeck do
+  subject(:build_deck) { described_class }
 
-  let(:default_deck) { builder.call }
+  let(:default_deck) { build_deck.custom }
 
-  describe ".call" do
+  describe ".custom" do
     context "when no arguments are passed" do
       it "has 52 cards by default" do
         expect(default_deck.cards.size).to eq(52)
@@ -22,7 +22,7 @@ RSpec.describe CardDealer::DeckBuilder do
 
     context "when arguments are passed" do
       subject(:custom_deck) do
-        builder.call(decks:, cards_per_suit:, ranks:, suits:)
+        build_deck.custom(decks:, cards_per_suit:, ranks:, suits:)
       end
 
       let(:decks) { 1 }
@@ -146,7 +146,7 @@ RSpec.describe CardDealer::DeckBuilder do
   end
 
   describe ".standard52" do
-    subject(:deck) { builder.standard52 }
+    subject(:deck) { build_deck.standard52 }
 
     it "has 52 cards" do
       expect(deck.cards.size).to eq(52)
@@ -161,12 +161,12 @@ RSpec.describe CardDealer::DeckBuilder do
     end
 
     it "can return more than one deck" do
-      expect(builder.standard52(decks: 2).cards.size).to eq(104)
+      expect(build_deck.standard52(decks: 2).cards.size).to eq(104)
     end
   end
 
   describe ".standard36" do
-    subject(:deck) { builder.standard36 }
+    subject(:deck) { build_deck.standard36 }
 
     it "has 36 cards" do
       expect(deck.cards.size).to eq(36)
@@ -181,7 +181,7 @@ RSpec.describe CardDealer::DeckBuilder do
     end
 
     it "can return more than one deck" do
-      expect(builder.standard36(decks: 2).cards.size).to eq(72)
+      expect(build_deck.standard36(decks: 2).cards.size).to eq(72)
     end
   end
 end

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe CardDealer::Deck do
-  subject(:deck) { CardDealer::DeckBuilder.standard52 }
+  subject(:deck) { CardDealer::BuildDeck.standard52 }
 
-  let(:another_deck) { CardDealer::DeckBuilder.standard52 }
+  let(:another_deck) { CardDealer::BuildDeck.standard52 }
 
   describe "#shuffle" do
     it "shuffles the cards and returns the deck", aggregate_failures: true do

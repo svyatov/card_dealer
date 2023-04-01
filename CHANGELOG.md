@@ -2,7 +2,7 @@
 
 ### BREAKING CHANGES
 
-- Deck building in extracted from the `Deck` class to the `DeckBuilder` class:
+- Deck building in extracted from the `Deck` class to the `BuildDeck` class:
   - `Deck#new` now takes an array of cards instead of a hash of options
   - `Deck#reset` removed
 
@@ -10,7 +10,7 @@
 
 - `BinaryDeck` class to convert decks to binary format and back
   (to save space when storing decks in a database, for example)
-- `DeckBuilder` class to build decks
+- `BuildDeck` class to build decks
 - `Card` instances are now safe to use as hash keys
 - `Card#eql?`, `Card#hash` and `Card#==` methods to compare cards and safely use them as hash keys
 - `Card#<=>` method to make cards sortable

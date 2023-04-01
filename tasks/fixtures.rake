@@ -7,7 +7,7 @@ namespace :fixtures do
     require_relative "../lib/card_dealer"
 
     # Less then 255 cards
-    deck = CardDealer::DeckBuilder.standard52.shuffle
+    deck = CardDealer::BuildDeck.standard52.shuffle
     deck_partial = CardDealer::Deck.new(deck.cards.take(11)).shuffle
     deck_single_card = CardDealer::Deck.new([deck.cards.first])
 

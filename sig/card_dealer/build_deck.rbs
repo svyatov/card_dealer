@@ -1,6 +1,6 @@
 module CardDealer
-  class DeckBuilder
-    def self.call: (
+  class BuildDeck
+    def self.custom: (
         ?decks: Integer,
         ?cards_per_suit: Integer,
         ?ranks: :highest | :lowest | Array[String],

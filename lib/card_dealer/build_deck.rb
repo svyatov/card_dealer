@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module CardDealer
-  # The DeckBuilder class is responsible for creating a deck of cards with various configurations.
+  # The BuildDeck class is responsible for creating a deck of cards with various configurations.
   #
   # It allows specifying the number of decks, cards per suit, ranks, and suits. It also provides
   # methods for creating standard 52-card and 36-card decks. The resulting deck can be used with
   # the {Deck} class for shuffling and other operations.
   #
-  class DeckBuilder
+  class BuildDeck
     class InvalidRanksError < Error; end
     class InvalidSuitsError < Error; end
 
@@ -29,7 +29,7 @@ module CardDealer
       # @raise [InvalidRanksError] If ranks are invalid.
       # @raise [InvalidSuitsError] If suits are invalid.
       #
-      def call(decks: 1, cards_per_suit: 13, ranks: :highest, suits: :all)
+      def custom(decks: 1, cards_per_suit: 13, ranks: :highest, suits: :all)
         ranks = build_ranks ranks, cards_per_suit
         suits = build_suits suits
         build_deck decks, ranks, suits
@@ -42,7 +42,7 @@ module CardDealer
       # @return [Deck] A new deck with the standard 52-card configuration.
       #
       def standard52(decks: 1)
-        call decks:
+        custom decks:
       end
 
       # Builds a standard 36-card deck.
@@ -52,7 +52,7 @@ module CardDealer
       # @return [Deck] A new deck with the standard 36-card configuration.
       #
       def standard36(decks: 1)
-        call decks:, cards_per_suit: 9
+        custom decks:, cards_per_suit: 9
       end
 
       private
