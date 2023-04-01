@@ -10,7 +10,7 @@ module CardDealer
   class Deck
     # @return [Array<Card>] The array of cards in the deck.
     attr_reader :cards
-    # @return [Integer] The seed used for shuffling the deck.
+    # @return [Integer, nil] The seed used for shuffling the deck.
     attr_reader :seed
 
     # Initializes a new deck with the specified cards.

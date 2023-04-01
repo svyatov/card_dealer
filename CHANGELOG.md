@@ -15,10 +15,15 @@
 - `Card#eql?`, `Card#hash` and `Card#==` methods to compare cards and safely use them as hash keys
 - `Deck#size` method to get the number of cards in the deck
 - Lots of documentation
+- [Steep](https://github.com/soutaro/steep) gem to check types correctness
 
 ### Changed
 
 - It's possible to initialize a card with a string now, e.g. `Card.new('9c')`
+
+### Fixed
+
+- All the type declarations are now correct
 
 ## [0.1.0] - 2023-03-26
 

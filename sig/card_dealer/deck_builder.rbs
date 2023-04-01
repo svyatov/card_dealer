@@ -4,7 +4,7 @@ module CardDealer
         ?decks: Integer,
         ?cards_per_suit: Integer,
         ?ranks: :highest | :lowest | Array[String],
-        ?suits: :all | Array[String]) -> void
+        ?suits: :all | Array[String]) -> Deck
 
     def self.standard52: (?decks: Integer) -> Deck
 
@@ -12,10 +12,10 @@ module CardDealer
 
     private
 
-    def self.build_ranks: (ranks: :highest | :lowest | Array[String]) -> Array[String]
+    def self.build_ranks: (:highest | :lowest | Array[String] ranks, Integer cards_per_rank) -> Array[String]
 
-    def self.build_suits: (suits: :all | Array[String]) -> Array[String]
+    def self.build_suits: (:all | Array[String] suits) -> Array[String]
 
-    def self.build_deck: (decks: Integer, cards_per_suit: Integer, ranks: Array[String], suits: Array[String]) -> Deck
+    def self.build_deck: (Integer decks, Array[String] ranks, Array[String] suits) -> Deck
   end
 end

@@ -16,12 +16,12 @@ module CardDealer
     attr_reader rank: String
     attr_reader suit: String
 
-    def initialize: (rank: String, suit: String | nil) -> void
+    def initialize: (String rank, ?String? suit) -> void
 
     def to_s: -> String
 
     private
 
-    def validate_arguments: (rank: String, suit: String) -> void
+    def validate_card!: -> void
   end
 end

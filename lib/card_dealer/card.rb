@@ -29,8 +29,8 @@ module CardDealer
     # T = 10, J = Jack, Q = Queen, K = King, A = Ace
     RANKS = %w[2 3 4 5 6 7 8 9 T J Q K A].freeze
     SUITS = [CLUBS, DIAMONDS, HEARTS, SPADES].freeze
-    RANK_MAP = RANKS.zip(0..12).to_h.freeze
-    SUIT_MAP = SUITS.zip(0..3).to_h.freeze
+    RANK_MAP = RANKS.zip((0..12).to_a).to_h.freeze
+    SUIT_MAP = SUITS.zip((0..3).to_a).to_h.freeze
 
     # @return [String] The rank of the card
     attr_reader :rank
@@ -53,10 +53,9 @@ module CardDealer
     #
     def initialize(rank, suit = nil)
       rank, suit = rank.chars if suit.nil?
-      validate_arguments rank, suit
-
-      @rank = rank
-      @suit = suit
+      @rank = rank.to_s
+      @suit = suit.to_s
+      validate_card!
     end
 
     # Returns the string representation of the card, combining its rank and suit (e.g., "As", "Td", "2c").
@@ -146,9 +145,6 @@ module CardDealer
 
     # Validates the rank and suit arguments provided when initializing a card instance.
     #
-    # @param rank [String] The card's rank (2-9, T, J, Q, K, A) to be validated.
-    # @param suit [String] The card's suit (c, d, h, s) to be validated.
-    #
     # @raise [InvalidRankError] If the rank is invalid.
     # @raise [InvalidSuitError] If the suit is invalid.
     #
@@ -162,7 +158,7 @@ module CardDealer
     #   # Invalid suit
     #   card = CardDealer::Card.new("A", "x") #=> raises InvalidSuitError, "Invalid suit: x"
     #
-    def validate_arguments(rank, suit)
+    def validate_card!
       raise InvalidRankError, "Invalid rank: #{rank}" unless RANK_MAP.key?(rank)
       raise InvalidSuitError, "Invalid suit: #{suit}" unless SUIT_MAP.key?(suit)
     end
