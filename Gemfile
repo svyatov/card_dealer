@@ -11,7 +11,7 @@ gem "rspec", "~> 3.12"
 gem "simplecov", require: false
 gem "simplecov_json_formatter", require: false
 
-gem "rubocop", "~> 1.49"
+gem "rubocop", "~> 1.51"
 gem "rubocop-rake", "~> 0.6"
 gem "rubocop-rspec", "~> 2.19"
 
