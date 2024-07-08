@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in card_dealer.gemspec
 gemspec
 
-gem "rake", "~> 13.0"
+gem "rake", "~> 13.2"
 
 gem "rspec", "~> 3.12"
 gem "simplecov", require: false
