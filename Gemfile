@@ -13,6 +13,6 @@ gem "simplecov_json_formatter", require: false
 
 gem "rubocop", "~> 1.49"
 gem "rubocop-rake", "~> 0.6"
-gem "rubocop-rspec", "~> 2.19"
+gem "rubocop-rspec", "~> 3.0"
 
 gem "steep", require: false
