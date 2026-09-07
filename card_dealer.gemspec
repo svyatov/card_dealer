@@ -8,13 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors = ["Leonid Svyatov"]
   spec.email = ["leonid@svyatov.com"]
 
-  spec.summary = "A delightful card dealing companion for your digital table."
+  spec.summary = "Builds, shuffles, and deals decks of playing cards."
   spec.description = <<~DESC
-    CardDealer is your go-to gem for creating, shuffling, and dealing decks of
-    cards with ease. Whether you're building a poker night app or a virtual
-    bridge club, CardDealer has got you covered. Enjoy customizable deck
-    options, smooth shuffling algorithms, and simple yet powerful deck
-    manipulation tools that bring the classic card game experience to life.
+    CardDealer builds standard 52-card and 36-card decks and custom decks,
+    shuffles them with a seedable Fisher-Yates shuffle, deals and burns cards,
+    and encodes a deck to a compact binary string. It has no runtime
+    dependencies and requires Ruby 3.3 or newer.
   DESC
   spec.homepage = "https://github.com/svyatov/card_dealer"
   spec.license = "MIT"
