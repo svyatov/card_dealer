@@ -35,7 +35,9 @@ jobs:
         with:
           ruby-version: '3.4'
           bundler-cache: false
-      - run: ruby -e 'spec = Gem::Specification.load("card_dealer.gemspec"); abort "tag #{ENV["GITHUB_REF_NAME"]} does not match version #{spec.version}" unless ENV.fetch("GITHUB_REF_NAME") == "v#{spec.version}"'
+      - name: Check the tag matches the gem version
+        run: |
+          ruby -e 'spec = Gem::Specification.load("card_dealer.gemspec"); tag = ENV.fetch("GITHUB_REF_NAME"); abort "tag #{tag} does not match version #{spec.version}" unless tag == "v#{spec.version}"'
       - run: mkdir -p pkg && gem build card_dealer.gemspec --output pkg/card_dealer.gem
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
