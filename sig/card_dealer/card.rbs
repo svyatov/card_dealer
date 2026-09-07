@@ -20,6 +20,16 @@ module CardDealer
 
     def to_s: -> String
 
+    def eql?: (untyped other) -> bool
+
+    def hash: -> Integer
+
+    def ==: (untyped other) -> bool
+
+    def <=>: (untyped other) -> Integer?
+
+    def inspect: -> String
+
     private
 
     def validate_card!: -> void
