@@ -1,0 +1,43 @@
+name: Bug report
+description: A method returned or raised something other than what the README says
+labels: [bug]
+body:
+  - type: input
+    id: gem-version
+    attributes:
+      label: card_dealer version
+      description: Paste the output of `bundle info card_dealer` or `gem list card_dealer`.
+      placeholder: card_dealer (0.2.0)
+    validations:
+      required: true
+  - type: input
+    id: ruby-version
+    attributes:
+      label: Ruby version
+      description: Paste the output of `ruby -v`.
+      placeholder: ruby 3.4.1 (2024-12-25 revision 48d4efcb85) +PRISM [arm64-darwin24]
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Code that reproduces it
+      description: The smallest script that shows the problem, runnable with `ruby script.rb`.
+      render: ruby
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen
+      description: Quote the README sentence or the method signature that says so.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happens instead
+      description: The output or the full error with its backtrace.
+      render: text
+    validations:
+      required: true

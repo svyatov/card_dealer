@@ -1,0 +1,19 @@
+name: Feature request
+description: Propose a change to what the gem does
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What you are trying to do
+      description: The card game or program that needs this, and what it cannot do with the gem today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: The call you would like to make and what it returns.
+      render: ruby
+    validations:
+      required: false
