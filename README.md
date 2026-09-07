@@ -1,49 +1,58 @@
 # CardDealer
-[![Gem Version](https://badge.fury.io/rb/card_dealer.svg)](https://badge.fury.io/rb/card_dealer)
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
 
-CardDealer is your go-to gem for creating, shuffling, and dealing decks of cards
-with ease. Whether you're building a poker night app or a virtual bridge club,
-CardDealer has got you covered. Enjoy customizable deck options, smooth
-shuffling algorithms, and simple yet powerful deck manipulation tools that bring
-the classic card game experience to life.
+CardDealer builds, shuffles, and deals decks of playing cards for Ruby card game applications.
 
-## Installation
+[![gem](https://img.shields.io/gem/v/card_dealer)](https://rubygems.org/gems/card_dealer)
+[![CI](https://github.com/svyatov/card_dealer/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/svyatov/card_dealer/actions/workflows/main.yml)
 
-CardDealer requires Ruby 3.3 or newer.
+- **Three deck shapes.** Builds standard 52-card and 36-card decks, and custom decks from any ranks, suits, and number of decks.
+- **Replayable shuffles.** Shuffles with Fisher-Yates from a seed you can pass in or read back from the deck.
+- **40 bytes for 52 cards.** Encodes a deck to a binary string for a database, a cache, or a file.
+- **No runtime dependencies.** Requires Ruby 3.3 or newer and nothing else.
 
-Install the gem and add to the application's Gemfile by executing:
+Add it to your Gemfile:
 
-    $ bundle add card_dealer
+```bash
+bundle add card_dealer
+```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Then build a deck, shuffle it, and deal a hand:
 
-    $ gem install card_dealer
+```ruby
+require "card_dealer"
+
+deck = CardDealer::BuildDeck.standard52.shuffle(42)
+deck.deal(5).map(&:to_s) # => ["8d", "4s", "Ts", "Ac", "6s"]
+deck.size                # => 47
+```
+
+A card prints as its rank (2 to 9, T, J, Q, K, A) followed by its suit (c, d, h, s).
 
 ## Usage
 
-### Creating a standard 52-card deck
+### Building a standard 52-card deck
 
-To create a standard 52-card deck, use the `CardDealer::BuildDeck.standard52` method:
+To build a 52-card deck, call `CardDealer::BuildDeck.standard52`:
 
 ```ruby
 deck = CardDealer::BuildDeck.standard52
-puts deck.cards
+deck.size          # => 52
+deck.to_a.first(3) # => ["2c", "3c", "4c"]
 ```
 
-### Creating a standard 36-card deck
+### Building a standard 36-card deck
 
-To create a standard 36-card deck, use the `CardDealer::BuildDeck.standard36` method:
+To build a 36-card deck, call `CardDealer::BuildDeck.standard36`:
 
 ```ruby
 deck = CardDealer::BuildDeck.standard36
-puts deck.cards
+deck.size          # => 36
+deck.to_a.first(3) # => ["6c", "7c", "8c"]
 ```
 
-### Creating a custom deck of cards
+### Building a custom deck
 
-To create a custom deck of cards, use the `CardDealer::BuildDeck.custom` method.
-You can specify the number of decks, cards per suit, ranks, and suits:
+To build a custom deck, call `CardDealer::BuildDeck.custom`. `ranks` takes `:highest`, `:lowest`, or an array such as `%w[2 4 6 8 T]`. `suits` takes `:all` or an array such as `%w[d h]`:
 
 ```ruby
 deck = CardDealer::BuildDeck.custom(
@@ -52,87 +61,80 @@ deck = CardDealer::BuildDeck.custom(
   ranks: :highest,
   suits: %w[c d]
 )
-puts deck.cards
+deck.size          # => 20
+deck.to_a.first(6) # => ["Tc", "Jc", "Qc", "Kc", "Ac", "Td"]
 ```
 
 ### Shuffling and dealing cards
 
-The `CardDealer::Deck` class provides methods for shuffling and dealing cards:
+`CardDealer::Deck#shuffle` takes an optional seed. Without one, it generates a seed and stores it in `seed`, so you can replay the shuffle later:
 
 ```ruby
 deck = CardDealer::BuildDeck.standard52
 deck.shuffle
-hand = deck.deal(5)
-puts hand
+seed = deck.seed    # keep this to replay the shuffle
+hand = deck.deal(5) # => five CardDealer::Card objects
+deck.size           # => 47
 ```
 
-You can also burn cards before dealing:
+To burn cards before dealing, pass `burn:`:
 
 ```ruby
-deck = CardDealer::BuildDeck.standard52
-deck.shuffle
+deck = CardDealer::BuildDeck.standard52.shuffle(42)
 hand = deck.deal(3, burn: 1)
-puts hand
+hand.map(&:to_s)              # => ["4s", "Ts", "Ac"]
+deck.burned_cards.map(&:to_s) # => ["8d"]
 ```
 
-To burn cards without dealing, just pass `0` as the number of cards to deal:
+To burn cards without dealing, deal `0` cards:
 
 ```ruby
-deck = CardDealer::BuildDeck.standard52
-deck.shuffle
-hand = deck.deal(0, burn: 1)
-puts hand
-```
-
-Burned cards are stored within the deck and can be accessed via `burned_cards` method:
-
-```ruby
-deck = CardDealer::BuildDeck.standard52
-deck.shuffle
+deck = CardDealer::BuildDeck.standard52.shuffle(42)
 deck.deal(0, burn: 10)
-puts deck.burned_cards
+deck.burned_cards.size # => 10
+deck.size              # => 42
 ```
 
-### Encoding a deck of cards as a binary string
+### Encoding a deck as a binary string
 
-To encode a deck of cards as a binary string, use the `CardDealer::BinaryDeck.encode` method.
-This is useful if you'd like to store a deck of cards in a database, cache, or a file:
+To encode a deck, call `CardDealer::BinaryDeck.encode` or `Deck#to_binary_s`. Each card takes 6 bits, after a 1, 2, or 4 byte header carrying the card count:
 
 ```ruby
-deck = CardDealer::BuildDeck.standard52
-encoded_deck = CardDealer::BinaryDeck.encode(deck)
+deck = CardDealer::Deck.new([CardDealer::Card.new("As"), CardDealer::Card.new("Td")])
+encoded = CardDealer::BinaryDeck.encode(deck)
 # - or -
-encoded_deck = deck.to_binary_s
-puts encoded_deck
+encoded = deck.to_binary_s
+encoded # => "\x02\xCDP"
 ```
 
-### Decoding a binary string into a deck of cards
+### Decoding a binary string into a deck
 
-To decode a binary string into a deck of cards, use the `CardDealer::BinaryDeck.decode` method:
+To decode a binary string, call `CardDealer::BinaryDeck.decode` or `Deck.from_binary`:
 
 ```ruby
-encoded_deck = "\x02\xCDP" # binary string
-decoded_deck = CardDealer::BinaryDeck.decode(encoded_deck)
+encoded = "\x02\xCDP"
+deck = CardDealer::BinaryDeck.decode(encoded)
 # - or -
-decoded_deck = CardDealer::Deck.from_binary(encoded_deck)
-puts decoded_deck.cards
+deck = CardDealer::Deck.from_binary(encoded)
+deck.to_a # => ["As", "Td"]
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run
-`rake spec` to run the tests. You can also run `bin/console` for an interactive
-prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Run `bundle exec rake` to run the type checker, the linter, and the tests. Run `bin/console` for an interactive prompt.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To
-release a new version, update the version number in `version.rb`, and then run
-`bundle exec rake release`, which will create a git tag for the version, push
-git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `lib/card_dealer/version.rb`. Add the release to `CHANGELOG.md`. Push a tag such as `v0.3.0`, which cuts the release.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/svyatov/card_dealer.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, tests, and how to open a pull request. To report a vulnerability, follow [SECURITY.md](SECURITY.md).
+
+## Help and status
+
+Ask questions and report bugs in [GitHub issues](https://github.com/svyatov/card_dealer/issues).
+
+CardDealer is actively maintained by one person. Releases happen when there is something to release.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+CardDealer is available under the [MIT License](LICENSE.txt). Releases are listed in [CHANGELOG.md](CHANGELOG.md).
