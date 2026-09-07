@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "set"
-
 module CardDealer
   class Error < StandardError; end
 end

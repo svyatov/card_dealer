@@ -1,5 +1,14 @@
 ## [Unreleased]
 
+### BREAKING CHANGES
+
+- Ruby 3.3 or newer is required. Ruby 3.1 and 3.2 reached end of life and are no longer tested.
+
+### Changed
+
+- Development dependencies updated to their current releases (RuboCop 1.90, RSpec 3.13, Steep 2.1, rbs 4.2)
+- CI runs on Ruby 3.3, 3.4, and 4.0
+
 ## [0.2.0] - 2023-04-01
 
 ### BREAKING CHANGES
