@@ -16,6 +16,8 @@ removed.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-07
+
 ### Changed
 
 - **Breaking:** Ruby 3.3 or newer is required. Ruby 3.1 and 3.2 reached end of life and are no longer tested.
@@ -69,6 +71,7 @@ Initial release!
 - Ability to shuffle a deck
 - Ability to reset a deck
 
-[unreleased]: https://github.com/svyatov/card_dealer/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/svyatov/card_dealer/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/svyatov/card_dealer/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/svyatov/card_dealer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/svyatov/card_dealer/releases/tag/v0.1.0
