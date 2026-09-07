@@ -4,11 +4,6 @@ require "simplecov"
 
 SimpleCov.start do
   enable_coverage :branch
-
-  if ENV["CI"]
-    require "simplecov_json_formatter"
-    formatter SimpleCov::Formatter::JSONFormatter
-  end
 end
 
 require "card_dealer"

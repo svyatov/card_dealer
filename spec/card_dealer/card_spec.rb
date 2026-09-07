@@ -43,7 +43,7 @@ RSpec.describe CardDealer::Card do
     end.to raise_error(described_class::InvalidSuitError).with_message("Invalid suit: invalid")
   end
 
-  it "can be initialized with a string representing a card", aggregate_failures: true do
+  it "can be initialized with a string representing a card", :aggregate_failures do
     card = described_class.new(card_string)
     expect(card.rank).to eq(rank)
     expect(card.suit).to eq(suit)
