@@ -10,6 +10,8 @@ the classic card game experience to life.
 
 ## Installation
 
+CardDealer requires Ruby 3.3 or newer.
+
 Install the gem and add to the application's Gemfile by executing:
 
     $ bundle add card_dealer
