@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.4'
+          bundler-cache: false
+      - run: bundle config set --local frozen true
+      - run: bundle install
+      - run: bundle exec rake
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.4'
+          bundler-cache: false
+      - run: ruby -e 'spec = Gem::Specification.load("card_dealer.gemspec"); abort "tag #{ENV["GITHUB_REF_NAME"]} does not match version #{spec.version}" unless ENV.fetch("GITHUB_REF_NAME") == "v#{spec.version}"'
+      - run: mkdir -p pkg && gem build card_dealer.gemspec --output pkg/card_dealer.gem
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: built-gem
+          path: pkg/card_dealer.gem
+          retention-days: 1
+
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [test, build]
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: built-gem
+          path: pkg/
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.4'
+          bundler-cache: false
+      - uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
+      - run: gem exec --conservative sigstore-cli:0.2.3 sign pkg/card_dealer.gem --bundle pkg/card_dealer.gem.sigstore.json
+      - run: gem push pkg/card_dealer.gem --attestation pkg/card_dealer.gem.sigstore.json
