@@ -119,6 +119,8 @@ deck = CardDealer::Deck.from_binary(encoded)
 deck.to_a # => ["As", "Td"]
 ```
 
+If the payload length does not match the declared card count, decoding raises `CardDealer::BinaryDeck::InvalidEncodingError`.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Run `bundle exec rake` to run the type checker, the linter, and the tests. Run `bin/console` for an interactive prompt.

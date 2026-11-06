@@ -70,6 +70,32 @@ RSpec.describe CardDealer::BinaryDeck do
     it "raises an error if the deck is too large" do
       expect { described_class.decode(deck_out_of_range) }.to raise_error(CardDealer::BinaryDeck::DeckTooLargeError)
     end
+
+    {
+      "a missing header" => "".b,
+      "a missing payload" => [1].pack("C"),
+      "an incomplete card payload" => [2, 0].pack("CC"),
+      "excess payload bytes" => [1, 0, 0].pack("CCC"),
+      "a truncated 16-bit deck at the header-width boundary" => [256].pack("S") + ("\0" * 191),
+      "a truncated 32-bit deck at the header-width boundary" => [65_536].pack("L") + ("\0" * 49_150)
+    }.each do |description, payload|
+      it "rejects #{description}" do
+        expect { described_class.decode(payload) }.to raise_error(described_class::InvalidEncodingError)
+      end
+    end
+
+    it "decodes an empty deck" do
+      expect(described_class.decode("\0").cards).to eq([])
+    end
+
+    [255, 256, 65_535, 65_536].each do |size|
+      it "preserves all #{size} cards at a header-width boundary" do
+        original_deck = CardDealer::Deck.new(Array.new(size) { CardDealer::Card.new("2c") })
+        decoded_deck = described_class.decode(described_class.encode(original_deck))
+
+        expect(decoded_deck.to_a).to eq(Array.new(size, "2c"))
+      end
+    end
   end
 
   it "encodes and decodes a deck without losing data", :aggregate_failures do
