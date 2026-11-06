@@ -16,6 +16,10 @@ removed.
 
 ## [Unreleased]
 
+### Fixed
+
+- Binary decoding rejects payload lengths that do not match the declared card count with `CardDealer::BinaryDeck::InvalidEncodingError`, including truncated decks.
+
 ## [0.3.0] - 2026-09-07
 
 ### Changed

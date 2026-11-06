@@ -12,6 +12,7 @@ module CardDealer
   #
   class BinaryDeck
     class DeckTooLargeError < Error; end
+    class InvalidEncodingError < Error; end
 
     SUIT_MAP = Card::SUIT_MAP.transform_values { |value| value * 13 }
     RANK_MAP = Card::RANK_MAP
@@ -83,6 +84,8 @@ module CardDealer
       #
       # @return [Deck] The decoded deck of cards.
       #
+      # @raise [InvalidEncodingError] If the payload length does not match the declared card count.
+      #
       # @example
       #   encoded_deck = "\x02\xCDP" # (binary string)
       #   decoded_deck = CardDealer::BinaryDeck.decode(encoded_deck)
@@ -91,6 +94,10 @@ module CardDealer
       def decode(encoded_deck)
         template = decoding_template_for encoded_deck.bytesize
         deck_size, binary_numbers = encoded_deck.unpack(template)
+        if deck_size.nil? || binary_numbers.size != (((deck_size * 6) + 7) / 8) * 8
+          raise InvalidEncodingError, "Encoded deck length does not match its card count"
+        end
+
         cards = binary_numbers.scan(/.{6}/).take(deck_size).map do |binary_number|
           REVERSE_CARD_BINARY_NUMBER_MAP.fetch(binary_number)
         end
