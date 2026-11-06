@@ -110,7 +110,7 @@ DEPENDENCIES
   card_dealer!
   rake (~> 13.4)
   rspec (~> 3.13)
-  rubocop (~> 1.90)
+  rubocop (~> 1.92)
   rubocop-rake (~> 0.7)
   rubocop-rspec (~> 3.10)
   simplecov
